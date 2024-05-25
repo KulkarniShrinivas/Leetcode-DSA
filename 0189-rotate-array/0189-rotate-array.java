@@ -1,7 +1,10 @@
 class Solution {
     public void rotate(int[] nums, int k) {
         //more optimized by handlining dummy rotations
-        if(nums.length==0 || nums.length<=1 || k==0) return ;
+        if(nums.length==0 || nums.length<=1 || k==0) 
+        {
+            return ;
+        }
 
 
        k=k%nums.length;
