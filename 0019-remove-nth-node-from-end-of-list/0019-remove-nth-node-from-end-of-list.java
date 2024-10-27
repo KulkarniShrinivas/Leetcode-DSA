@@ -8,36 +8,25 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
- //dry run
- //for loop going to each element till end
- //but we need to do under one iteration in efficient solution 
- //lets consider for 2 iteration
- //create dummynode and assign two pointers for them as first and second pointer 
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode dummy = new ListNode(-1);
+        ListNode dummy = new ListNode();
         dummy.next = head;
 
-        //[dummy]->[4]->[8]->[15]->[16]->[23]
-        ListNode firstPtr = dummy;
-        ListNode secondPtr = dummy;
+        ListNode slow = dummy;
+        ListNode fast= dummy;
 
-        //move secondPtr n spaces ahead
-        for(int i =0; i<n; i++){
-            secondPtr = secondPtr.next;
+        for(int i=0; i<=n; i++){
+            fast = fast.next;
         }
 
-        //move both now until the next of secondPtr is null
-        while(secondPtr.next != null){
-            firstPtr = firstPtr.next;
-            secondPtr = secondPtr.next;
-
+        while(fast != null){
+            fast = fast.next;
+            slow= slow.next;
         }
 
-        //we now have to remove the node next to firstPtr
-        firstPtr.next = firstPtr.next.next;
-
+        slow.next = slow.next.next;
         return dummy.next;
-        
     }
+
 }
