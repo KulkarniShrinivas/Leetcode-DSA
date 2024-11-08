@@ -1,41 +1,26 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
 class Solution {
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        //creating dummy node
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
 
-        ListNode returnNode = new ListNode(Integer.MIN_VALUE);
+        ListNode dummy = new ListNode();
+        ListNode current = dummy;
 
-        //creating the copy of the node to iterate 
-        ListNode headNode = returnNode;
-
-        //traversing till one of list reaches null
-        while(l1 != null && l2 != null){
-            if(l1.val <= l2.val){
-            returnNode.next = l1;
-            l1= l1.next;
-        } else {
-            returnNode.next = l2;
-            l2 = l2.next;
+        while(list1 != null && list2 != null){
+            if(list1.val > list2.val){
+                current.next = list2;
+                list2 = list2.next;
+            } else{
+                current.next = list1;
+                list1 = list1.next;
+            }
+            current = current.next;
         }
-        returnNode = returnNode.next;
-    }
 
-    //append remaing 
-    if(l1==null){
-        returnNode.next = l2;
-    } else if(l2==null){
-            returnNode.next = l1;
+        if(list1 != null){
+            current.next = list1;
+        }else{
+            current.next = list2;
         }
-         return headNode.next;
+         return dummy.next;
     }
    
 }
