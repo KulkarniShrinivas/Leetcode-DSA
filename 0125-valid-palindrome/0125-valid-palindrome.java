@@ -1,27 +1,17 @@
 class Solution {
     public boolean isPalindrome(String s) {
-        // Preprocess the input string
-        s = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-        
-        // Get the left and right pointers
-        int left = 0;
-        int right = s.length() - 1;
+           s= s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-        // Start a loop and compare characters
-        while (left < right) {
-            // If same, move both pointers
-            if (s.charAt(left) == s.charAt(right)) {
-                left++;
-                right--;
-            }
-            // If not, simply return false
-            else {
+        int left = 0;
+        int right = s.length()-1;
+
+        while(left < right){
+            if(s.charAt(left) != s.charAt(right)){
                 return false;
             }
+            left++;
+            right--;
         }
-
-        // If we come out of the loop, then all
-        // characters have matched, return true
         return true;
     }
 }
