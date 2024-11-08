@@ -9,29 +9,29 @@
  * }
  */
 class Solution {
-    public static ListNode rotateRight(ListNode head, int k){
+    public ListNode rotateRight(ListNode head, int k) {
         if(k <= 0 || head == null || head.next == null){
             return head;
         }
-        //find the last node and length of the list
-        ListNode lastNode = head;
-        //length initially 1 because we are already at head
+        ListNode last = head;
         int length = 1;
-        while(lastNode.next != null){
-            lastNode = lastNode.next;
+        while(last.next != null){
+            last = last.next;
             length++;
         }
-        //point its next original head
-        lastNode.next = head;
-        int rotation = k % length;
-        int skip = length - rotation;
-        ListNode newLast = head;
 
-        for (int i=0; i<skip-1; i++){
+        last.next = head;
+        int rotations = k%length;
+
+        int skip = length - rotations;
+        ListNode newLast = head;
+        for(int i=0; i < skip-1; i++){
             newLast = newLast.next;
         }
         head = newLast.next;
         newLast.next = null;
+
         return head;
+        
     }
 }
