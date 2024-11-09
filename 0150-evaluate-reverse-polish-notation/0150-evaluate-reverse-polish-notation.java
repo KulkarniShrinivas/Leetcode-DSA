@@ -1,47 +1,30 @@
 class Solution {
-    // TC  : O(n)
-
     public int evalRPN(String[] tokens) {
-        Stack<String> st = new Stack<>();
+        Stack<Integer> stack = new Stack<>();
 
-        for(String el: tokens){
-            if(isOperator(el)){
+        for(String token : tokens){
+            if(isOperator(token)){
+                int num2 = stack.pop();
+                int num1 = stack.pop();
 
-                int el2 = Integer.parseInt(st.pop());
-                int el1 = Integer.parseInt(st.pop());
-                int ans = 0;
-
-                if(el.equals("*")){
-                    ans = el1 *el2;
-                } else if(el.equals("/")){
-                    ans = el1/el2;
-                }else if(el.equals("+")){
-                    ans = el1 +el2;
-                }else if(el.equals("-")){
-                    ans = el1 -el2;
+                if(token.equals("+")){
+                    stack.push(num1 + num2);
+                }else if(token.equals("-")){
+                    stack.push(num1 - num2);
+                }else if(token.equals("*")){
+                    stack.push(num1 * num2);
+                }else if(token.equals("/")){
+                    stack.push(num1 / num2);
                 }
-                st.push(ans+"");
-            } else {
-                // operand
-                st.push(el);
+            }else{
+                stack.push(Integer.parseInt(token));
             }
         }
-
-        return Integer.parseInt(st.peek());
+        return stack.pop();
     }
 
-    private boolean isOperator(String el){
-        if(el.equals("*") || el.equals("+") || el.equals("-") || el.equals("/")){
-            return true;
-        } else {
-            return false;
-        }
+    public static boolean isOperator(String tokens){
+        return tokens.equals("+") || tokens.equals("-") || tokens.equals("*") || tokens.equals("/");
+
     }
 }
-
-//simple stack operation
-//below is stack
-
-// |  1 | element 2= 1
-// | 2  | element 1= 2 so operatorcomes and pop will add 1+2=3
-// |___ | later 3 will be added in stack and again we have 3 in stack after that * operator 3*3=9
