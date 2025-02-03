@@ -1,25 +1,22 @@
 class Solution {
     public int maxProduct(int[] nums) {
-        //Kadane's Algoritham 
 
-        int n = nums.length;
-        int leftProduct = 1;
-        int rightProduct = 1;
-        int ans = nums[0];
+       int maxProduct = nums[0];
+       int minProduct = nums[0];
+       int result = nums[0];
 
-        for(int i=0; i<n;i++){
-            //if any of the leftProduct or rightProduct become 0 then update it to 1
-            leftProduct = leftProduct == 0 ? 1 : leftProduct;
-            rightProduct = rightProduct == 0 ? 1 : rightProduct;
-
-            //prefix product
-            leftProduct *= nums[i];
-            rightProduct *= nums[n-1-i];
-
-            ans = Math.max(ans, Math.max(leftProduct, rightProduct));
-
+       for(int i=1; i<nums.length;i++){
+        if(nums[i]<0){
+            int temp = maxProduct;
+            maxProduct = minProduct;
+            minProduct = temp;
         }
-        return ans;
+
+        maxProduct = Math.max(nums[i],  maxProduct*nums[i]);
+        minProduct = Math.min(nums[i], minProduct*nums[i]);
+
+        result = Math.max(result, maxProduct);
+       }
+       return result;
     }
-        
 }
